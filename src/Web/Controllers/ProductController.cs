@@ -25,5 +25,14 @@ namespace Web.Controllers
             List<Product> products = productRepositorie.Products;
             return Ok(products.Where(p => p.Name.Contains(nameForSearch)));
         }
+
+        [HttpPost]
+        public IActionResult AddProduct([FromBody] Product product)
+        {
+            ProductRepositorie productRepositorie = new ProductRepositorie();
+            List<Product> products = productRepositorie.Products;
+            products.Add(product);
+            return Ok(products);
+        }
     }
 }
