@@ -2,13 +2,9 @@
 
 namespace Web.Repositories
 {
-    public class ProductRepositorie
+    public static class ProductRepositorie
     {
-        public List<Product> Products {  get; set; }
-
-        public ProductRepositorie()
-        {
-            Products = new List<Product>()
+        public static List<Product> Products { get; set; } = new List<Product>()
             {
                 new Product()
                 {
@@ -38,6 +34,5 @@ namespace Web.Repositories
                     Stock = 15
                 }
             };
-        }
     }
 }
