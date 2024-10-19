@@ -33,33 +33,12 @@ namespace Web.Controllers
         public IActionResult AddProduct([FromBody] Product product)
         {
             product.Id = ProductRepositorie.Products.Count() + 1;
+            product.State = "Active";
             ProductRepositorie.Products.Add(product);
             return Ok(ProductRepositorie.Products);
         }
 
-        [HttpPut("{idProduct}")]
-        public IActionResult UpdateProduct([FromRoute] int idProduct, [FromBody] Product product)
-        {
-            int idProductToModify = ProductRepositorie.Products.FindIndex(p => p.Id == idProduct);
-            if (idProductToModify != -1)
-            {
-                Product newProduct = new Product()
-                {
-                    Id = idProduct,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Quantity = product.Quantity,
-                    Brand = product.Brand,
-                    Stock = product.Stock,
-                };
-                ProductRepositorie.Products[idProductToModify] = newProduct;
-                return Ok("Cambios realizador con exito");
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+
         [HttpPut("{idProduct}")]
         public IActionResult Update([FromRoute] int idProduct, [FromBody] Product product)
         {
