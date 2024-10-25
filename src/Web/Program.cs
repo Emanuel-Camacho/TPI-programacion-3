@@ -1,6 +1,8 @@
+using Application.Interfaces;
+using Application.Services;
+using Domain.Interfaces;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
-using Web.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +13,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
-builder.Configuration["ConnectionStrings:DBConnectionString"]));
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
-builder.Services.AddScoped<ProductRepositorie>();
+//builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
+//builder.Configuration["ConnectionStrings:DBConnectionString"]));
+
+//builder.Services.AddScoped<ProductRepositorie>();
 
 var app = builder.Build();
 
