@@ -8,6 +8,6 @@ namespace Domain.Entitites
 {
     public class Client : User
     {
-        //public List<Cart> Carts {  get; set; }
+        public List<Cart> Carts {  get; set; } = new List<Cart>();
     }
 }
