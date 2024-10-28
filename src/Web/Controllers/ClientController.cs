@@ -33,6 +33,7 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public IActionResult AddClient([FromBody] ClientDto clientDto)
         {
+            //Aca generar ID??
             var client = new Client
             {
                 Name = clientDto.Name,
