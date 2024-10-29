@@ -3,6 +3,7 @@ using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +20,13 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
-//builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
+builder.Services.AddDbContext<ApplicationContext>(options =>
+options.UseInMemoryDatabase(builder.Configuration.GetConnectionString("InMemoryDb")));
+
+//.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
 //builder.Configuration["ConnectionStrings:DBConnectionString"]));
 
-//builder.Services.AddScoped<ProductRepositorie>();
+//builder.Services.AddScoped<ProductRepository>();
 
 var app = builder.Build();
 
