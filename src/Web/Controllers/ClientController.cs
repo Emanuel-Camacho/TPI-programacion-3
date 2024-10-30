@@ -50,7 +50,7 @@ namespace Web.Controllers
         public IActionResult UpdateClient(int id, [FromBody] ClientDto clientDto)
         {
             var existingClient = _clientService.GetClientById(id);
-            //analisar si no es correcto el id por si no lo encuentra (modificar id??)
+            //analizar si no es correcto el id por si no lo encuentra (modificar id??)
             existingClient.Id = id;
             existingClient.Name = clientDto.Name;
             existingClient.Email = clientDto.Email;

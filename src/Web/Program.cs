@@ -2,6 +2,7 @@ using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Data;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -16,14 +17,25 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
-builder.Services.AddDbContext<ApplicationContext>(options =>
-options.UseInMemoryDatabase(builder.Configuration.GetConnectionString("InMemoryDb")));
+var connection = new SqliteConnection("Data Source=DistribuidorMayorista.db");
+connection.Open();
 
-//.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
+using (var command  = connection.CreateCommand())
+{
+    command.CommandText = "PRAGMA journal_mode = DELETE;";
+    command.ExecuteNonQuery();
+}
+
+builder.Services.AddDbContext<ApplicationContext>(dbContextOptions => dbContextOptions.UseSqlite(connection));
+//builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
 //builder.Configuration["ConnectionStrings:DBConnectionString"]));
 
 //builder.Services.AddScoped<ProductRepository>();

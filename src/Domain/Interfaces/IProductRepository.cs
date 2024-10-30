@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IClientRepository : IBaseRepository<Client>
+    public interface IProductRepository : IBaseRepository<Product>
     {
 
     }
